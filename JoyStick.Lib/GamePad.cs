@@ -39,17 +39,19 @@ namespace WinGamePad.Lib
 
         public class JoyStickXYZ
         {
+            
             public int X;
             public int Y;
             public int Z;
 
             public JoyStickXYZ Clone()
             {
+                
                 return new JoyStickXYZ() { X  = this.X, Y = this.Y, Z = this.Z };
             }
             public override string ToString()
             {
-                return $"X:{X:00000}, Y:{Y:00000}, Z:{Z:00000}";
+                return $"X:{X:00000}, Y:{Y:00000}, Z:{Z:00000} - X:{X- short.MaxValue:00000}, Y:{Y- short.MaxValue:00000}, Z:{Z- short.MaxValue:00000}";
             }
             public override bool Equals(object obj)
             {

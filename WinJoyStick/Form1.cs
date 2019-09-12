@@ -9,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace WinJoyStick
 {
     public partial class Form1 : Form
     {
         WinGamePad.Lib.LogitechF310GamePad logitechF310GamePad;
+        SoundManager soundManager;
 
         Dictionary<LogitechF310GamePadFeatures, PictureBox> GamePadButtonToButtonRprMap
         {
@@ -89,6 +91,10 @@ namespace WinJoyStick
             this.ButtonBRpr.Tag = this.ButtonBRpr.BackColor;
             this.ButtonXRpr.Tag = this.ButtonXRpr.BackColor;
             this.ButtonYRpr.Tag = this.ButtonYRpr.BackColor;
+
+            soundManager = new SoundManager();
+            soundManager.Add(this.ButtonARpr, @".\Wav\Yes.wav");
+            soundManager.Add(this.ButtonBRpr, @".\Wav\No.wav");
         }
 
         private void SetStatus(string m)
@@ -113,7 +119,13 @@ namespace WinJoyStick
         private void ActivateButton(PictureBox b, bool on)
         {
             if (on)
+            {
                 b.BackColor = Color.White;
+                if (soundManager.Contains(b))
+                {
+                    soundManager.Play(b);
+                }
+            }                
             else
                 b.BackColor = (Color)b.Tag;
         }
