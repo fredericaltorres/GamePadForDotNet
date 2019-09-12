@@ -44,12 +44,12 @@ namespace JoyStick.Lib
 
         public bool IsButtonPressedDown(List<JoystickUpdate> joystickUpdates, LogitechF310GamePadFeatures button)
         {
-            return base.AnalyseData(joystickUpdates, ButtonMapping[button], BUTTON_PRESSED_DOWN_VALUE);
+            return base.AnalyseDataForButtons(joystickUpdates, ButtonMapping[button], BUTTON_PRESSED_DOWN_VALUE);
         }
 
         public bool IsButtonPressedUp(List<JoystickUpdate> joystickUpdates, LogitechF310GamePadFeatures button)
         {
-            return base.AnalyseData(joystickUpdates, ButtonMapping[button], BUTTON_PRESSED_UP_VALUE);
+            return base.AnalyseDataForButtons(joystickUpdates, ButtonMapping[button], BUTTON_PRESSED_UP_VALUE);
         }
 
         public override bool Detect()

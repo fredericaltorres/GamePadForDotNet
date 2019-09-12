@@ -27,7 +27,7 @@ namespace JoyStick.Lib
             return datas;
         }
 
-        protected bool AnalyseData(List<JoystickUpdate> joystickUpdates, JoystickOffset offset, int value)
+        protected bool AnalyseDataForButtons(List<JoystickUpdate> joystickUpdates, JoystickOffset offset, int value)
         {
             foreach(var ju in joystickUpdates)
             {
@@ -35,6 +35,50 @@ namespace JoyStick.Lib
                     return true;
             }
             return false;
+        }
+
+        public class JoyStickXYZ
+        {
+            public int X;
+            public int Y;
+            public int Z;
+
+            public JoyStickXYZ Clone()
+            {
+                return new JoyStickXYZ() { X  = this.X, Y = this.Y, Z = this.Z };
+            }
+            public override string ToString()
+            {
+                return $"X:{X:00000}, Y:{Y:00000}, Z:{Z:00000}";
+            }
+            public override bool Equals(object obj)
+            {
+                JoyStickXYZ o = obj as JoyStickXYZ;
+                return this.X == o.X && this.Y == o.Y && this.Z == o.Z;
+            }
+        }
+
+        private JoyStickXYZ _previousJoyStickXYZ = new JoyStickXYZ();
+
+        public JoyStickXYZ AnalyseDataForXYJoyStick(List<JoystickUpdate> joystickUpdates)
+        {
+            JoyStickXYZ current = _previousJoyStickXYZ.Clone();
+            foreach (var ju in joystickUpdates)
+            {
+                     if (ju.Offset == JoystickOffset.X) current.X = ju.Value;
+                else if (ju.Offset == JoystickOffset.Y) current.Y = ju.Value;
+                else if (ju.Offset == JoystickOffset.Z) current.Z = ju.Value;
+            }
+
+            if (current.Equals(this._previousJoyStickXYZ))
+            {
+                return null;
+            }
+            else
+            {
+                this._previousJoyStickXYZ = current;
+                return current;
+            }
         }
 
         public virtual bool Detect()
@@ -53,7 +97,7 @@ namespace JoyStick.Lib
             //foreach (var effectInfo in allEffects)
             //    Console.WriteLine("Effect available {0}", effectInfo.Name);
 
-            joystick.Properties.BufferSize = 128; // Set BufferSize in order to use buffered data.
+            joystick.Properties.BufferSize = 128*256; // Set BufferSize in order to use buffered data.
 
             joystick.Acquire();
 
