@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpDX.DirectInput;
 
-namespace JoyStick.Lib
+namespace WinGamePad.Lib
 {
     /// <summary>
     /// http://sharpdx.org/

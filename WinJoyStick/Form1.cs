@@ -1,4 +1,4 @@
-﻿using JoyStick.Lib;
+﻿using WinGamePad.Lib;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace WinJoyStick
 {
     public partial class Form1 : Form
     {
-        JoyStick.Lib.LogitechF310GamePad logitechF310GamePad;
+        WinGamePad.Lib.LogitechF310GamePad logitechF310GamePad;
 
         Dictionary<LogitechF310GamePadFeatures, PictureBox> GamePadButtonToButtonRprMap
         {
@@ -77,7 +77,7 @@ namespace WinJoyStick
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            logitechF310GamePad = new JoyStick.Lib.LogitechF310GamePad();
+            logitechF310GamePad = new WinGamePad.Lib.LogitechF310GamePad();
             if (logitechF310GamePad.Detect())
             {
                 UserTrace($"{logitechF310GamePad.Name} detected ");
