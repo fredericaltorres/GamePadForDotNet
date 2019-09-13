@@ -26,12 +26,12 @@ namespace WinGamePad.Lib
 
         private Dictionary<LogitechF310GamePadFeatures, JoystickOffset> ButtonMapping = new Dictionary<LogitechF310GamePadFeatures, JoystickOffset>()
         {
-            { LogitechF310GamePadFeatures.ButtonA, JoystickOffset.Buttons0  },
-            { LogitechF310GamePadFeatures.ButtonB, JoystickOffset.Buttons1  },
+            { LogitechF310GamePadFeatures.ButtonA,  JoystickOffset.Buttons0 },
+            { LogitechF310GamePadFeatures.ButtonB,  JoystickOffset.Buttons1 },
             { LogitechF310GamePadFeatures.ButtonX , JoystickOffset.Buttons2 },
             { LogitechF310GamePadFeatures.ButtonY , JoystickOffset.Buttons3 },
         };
-               
+
         public LogitechF310GamePad()
         {
 

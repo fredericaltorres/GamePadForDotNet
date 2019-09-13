@@ -11,7 +11,7 @@ namespace WinGamePad.Lib
     /// http://sharpdx.org/
     /// https://stackoverflow.com/questions/3929764/taking-input-from-a-joystick-with-c-sharp-net
     /// </summary>
-    public class GamePad
+    public partial class GamePad
     {
         Joystick joystick;
         Guid joystickGuid = Guid.Empty;
@@ -37,53 +37,9 @@ namespace WinGamePad.Lib
             return false;
         }
 
-        public class JoyStickXYZ
-        {
-            
-            public int X;
-            public int Y;
-            public int Z;
-
-            public JoyStickXYZ Clone()
-            {
-                
-                return new JoyStickXYZ() { X  = this.X, Y = this.Y, Z = this.Z };
-            }
-
-            public int X0
-            {
-                get {
-                    return this.X - short.MaxValue - 128;
-                }
-            }
-            public int Y0
-            {
-                get
-                {
-                    return this.Y - short.MaxValue + 129 ;
-                }
-            }
-            public int Z0
-            {
-                get
-                {
-                    return this.Z - short.MaxValue ;
-                }
-            }
-            public override string ToString()
-            {
-                return $"X:{X:00000}, Y:{Y:00000}, Z:{Z:00000} - X:{X0:00000}, Y:{Y0:00000}, Z:{Z0:00000}";
-            }
-            public override bool Equals(object obj)
-            {
-                JoyStickXYZ o = obj as JoyStickXYZ;
-                return this.X == o.X && this.Y == o.Y && this.Z == o.Z;
-            }
-        }
-
         private JoyStickXYZ _previousJoyStickXYZ = new JoyStickXYZ();
 
-        public JoyStickXYZ AnalyseDataForXYJoyStick(List<JoystickUpdate> joystickUpdates)
+        public JoyStickXYZ AnalyseDataForXYZJoyStick(List<JoystickUpdate> joystickUpdates)
         {
             JoyStickXYZ current = _previousJoyStickXYZ.Clone();
             foreach (var ju in joystickUpdates)
@@ -100,6 +56,29 @@ namespace WinGamePad.Lib
             else
             {
                 this._previousJoyStickXYZ = current;
+                return current;
+            }
+        }
+
+        private JoyStickXYZ _previousRotationJoyStickXYZ = new JoyStickXYZ();
+
+        public JoyStickXYZ AnalyseDataForRotationJoyStickXYZ(List<JoystickUpdate> joystickUpdates)
+        {
+            JoyStickXYZ current = _previousRotationJoyStickXYZ.Clone();
+            foreach (var ju in joystickUpdates)
+            {
+                if (ju.Offset == JoystickOffset.RotationX) current.X = ju.Value;
+                else if (ju.Offset == JoystickOffset.RotationY) current.Y = ju.Value;
+                else if (ju.Offset == JoystickOffset.RotationZ) current.Z = ju.Value;
+            }
+
+            if (current.Equals(this._previousRotationJoyStickXYZ))
+            {
+                return null;
+            }
+            else
+            {
+                this._previousRotationJoyStickXYZ = current;
                 return current;
             }
         }

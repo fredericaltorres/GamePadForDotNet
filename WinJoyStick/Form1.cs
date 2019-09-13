@@ -57,9 +57,13 @@ namespace WinJoyStick
                 }
             }
 
-            var joyStickXYZ = logitechF310GamePad.AnalyseDataForXYJoyStick(datas);
+            var joyStickXYZ = logitechF310GamePad.AnalyseDataForXYZJoyStick(datas);
             if(joyStickXYZ != null)
                 UserTrace($"XYZ {joyStickXYZ.ToString()}");
+
+            var rotationJoyStickXYZ = logitechF310GamePad.AnalyseDataForRotationJoyStickXYZ(datas);
+            if (rotationJoyStickXYZ != null)
+                UserTrace($"Rotation XYZ {rotationJoyStickXYZ.ToString()}");
 
             if (this.ViewRawData)
             {
@@ -148,7 +152,6 @@ namespace WinJoyStick
                     b.Refresh();
                 }
             }
-                
         }
 
         private void ShowRawDataToolStripMenuItem_Click(object sender, EventArgs e)
