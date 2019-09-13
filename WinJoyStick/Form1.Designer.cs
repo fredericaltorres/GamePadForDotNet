@@ -40,6 +40,8 @@
             this.ButtonBRpr = new System.Windows.Forms.PictureBox();
             this.ButtonYRpr = new System.Windows.Forms.PictureBox();
             this.ButtonARpr = new System.Windows.Forms.PictureBox();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showRawDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ButtonXRpr)).BeginInit();
@@ -66,7 +68,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(2507, 56);
@@ -115,6 +118,7 @@
             this.ButtonXRpr.Size = new System.Drawing.Size(274, 218);
             this.ButtonXRpr.TabIndex = 4;
             this.ButtonXRpr.TabStop = false;
+            this.ButtonXRpr.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonGenericRpr_Paint);
             // 
             // ButtonBRpr
             // 
@@ -125,6 +129,7 @@
             this.ButtonBRpr.Size = new System.Drawing.Size(274, 218);
             this.ButtonBRpr.TabIndex = 5;
             this.ButtonBRpr.TabStop = false;
+            this.ButtonBRpr.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonGenericRpr_Paint);
             // 
             // ButtonYRpr
             // 
@@ -135,6 +140,7 @@
             this.ButtonYRpr.Size = new System.Drawing.Size(274, 218);
             this.ButtonYRpr.TabIndex = 6;
             this.ButtonYRpr.TabStop = false;
+            this.ButtonYRpr.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonGenericRpr_Paint);
             // 
             // ButtonARpr
             // 
@@ -145,6 +151,23 @@
             this.ButtonARpr.Size = new System.Drawing.Size(274, 218);
             this.ButtonARpr.TabIndex = 7;
             this.ButtonARpr.TabStop = false;
+            this.ButtonARpr.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonGenericRpr_Paint);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showRawDataToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(124, 57);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // showRawDataToolStripMenuItem
+            // 
+            this.showRawDataToolStripMenuItem.CheckOnClick = true;
+            this.showRawDataToolStripMenuItem.Name = "showRawDataToolStripMenuItem";
+            this.showRawDataToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.showRawDataToolStripMenuItem.Text = "Show Raw Data";
+            this.showRawDataToolStripMenuItem.Click += new System.EventHandler(this.ShowRawDataToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -188,6 +211,8 @@
         private System.Windows.Forms.PictureBox ButtonBRpr;
         private System.Windows.Forms.PictureBox ButtonYRpr;
         private System.Windows.Forms.PictureBox ButtonARpr;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showRawDataToolStripMenuItem;
     }
 }
 

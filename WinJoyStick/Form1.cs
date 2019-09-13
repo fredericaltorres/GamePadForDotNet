@@ -16,7 +16,9 @@ namespace WinJoyStick
     public partial class Form1 : Form
     {
         WinGamePad.Lib.LogitechF310GamePad logitechF310GamePad;
-        SoundManager soundManager;
+        SoundManager _soundManager;
+        PictureBox _activePictureBox = null;
+        string _activeText = null;
 
         Dictionary<LogitechF310GamePadFeatures, PictureBox> GamePadButtonToButtonRprMap
         {
@@ -59,12 +61,15 @@ namespace WinJoyStick
             if(joyStickXYZ != null)
                 UserTrace($"XYZ {joyStickXYZ.ToString()}");
 
-            //if (datas.Count > 0)
-            //{
-            //    foreach (var state in datas)
-            //        UserTrace($"{state}", false);
-            //    UserTrace("");
-            //}
+            if (this.ViewRawData)
+            {
+                if (datas.Count > 0)
+                {
+                    foreach (var state in datas)
+                        UserTrace($"{state}", false);
+                    UserTrace("");
+                }
+            }
         }
 
         private void UserTrace(string m, bool refresh = true)
@@ -85,6 +90,10 @@ namespace WinJoyStick
                 UserTrace($"{logitechF310GamePad.Name} detected ");
                 timer1.Enabled = true;
             }
+            else
+            {
+                UserTrace($"No GamePad detected ");
+            }
             this.SetStatus("Ready...");
             this.Form1_Resize(sender, e);
             this.ButtonARpr.Tag = this.ButtonARpr.BackColor;
@@ -92,9 +101,9 @@ namespace WinJoyStick
             this.ButtonXRpr.Tag = this.ButtonXRpr.BackColor;
             this.ButtonYRpr.Tag = this.ButtonYRpr.BackColor;
 
-            soundManager = new SoundManager();
-            soundManager.Add(this.ButtonARpr, @".\Wav\Yes.wav");
-            soundManager.Add(this.ButtonBRpr, @".\Wav\No.wav");
+            this._soundManager = new SoundManager();
+            this._soundManager.Add(this.ButtonARpr, @".\Wav\Yes.wav");
+            this._soundManager.Add(this.ButtonBRpr, @".\Wav\No.wav");
         }
 
         private void SetStatus(string m)
@@ -121,13 +130,49 @@ namespace WinJoyStick
             if (on)
             {
                 b.BackColor = Color.White;
-                if (soundManager.Contains(b))
+                if (this._soundManager.Contains(b))
                 {
-                    soundManager.Play(b);
+                    this._activeText = this._soundManager.GetText(b);
+                    this._activePictureBox = b;
+                    b.Refresh();
+                    this._soundManager.Play(b);
                 }
-            }                
+            }
             else
+            {
                 b.BackColor = (Color)b.Tag;
+                if (this._soundManager.Contains(b))
+                {
+                    this._activeText = null;
+                    this._activePictureBox = null;
+                    b.Refresh();
+                }
+            }
+                
+        }
+
+        private void ShowRawDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // this.Text  = $"{showRawDataToolStripMenuItem.Checked}";
+        }
+
+        private bool ViewRawData {
+            get
+            {
+                return this.showRawDataToolStripMenuItem.Checked;
+            }
+        }
+
+        private void ButtonGenericRpr_Paint(object sender, PaintEventArgs e)
+        {
+            var p = sender as PictureBox;
+            if (this._activePictureBox == p)
+            {
+                using (Font myFont = new Font("Arial", 14))
+                {
+                    e.Graphics.DrawString(this._activeText, myFont, Brushes.Black, new Point(1, 1));
+                }
+            }
         }
     }
 }
