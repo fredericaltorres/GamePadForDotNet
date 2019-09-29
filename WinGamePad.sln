@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGamePad", "WinJoyStick\WinGamePad.csproj", "{A3878E35-A121-439C-8269-EFC3BB6D447D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGamePad.Lib", "JoyStick.Lib\WinGamePad.Lib.csproj", "{45273F92-A7E6-4A60-A2AD-D88695A503B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGamePad.Lib", "WinGamePad.Lib\WinGamePad.Lib.csproj", "{45273F92-A7E6-4A60-A2AD-D88695A503B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

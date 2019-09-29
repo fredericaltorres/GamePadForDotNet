@@ -91,18 +91,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JoyStick.Lib\WinGamePad.Lib.csproj">
-      <Project>{45273f92-a7e6-4a60-a2ad-d88695a503b5}</Project>
-      <Name>WinGamePad.Lib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Wav\No.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Wav\Yes.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinGamePad.Lib\WinGamePad.Lib.csproj">
+      <Project>{45273f92-a7e6-4a60-a2ad-d88695a503b5}</Project>
+      <Name>WinGamePad.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
